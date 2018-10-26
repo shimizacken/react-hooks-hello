@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-const SubTitle = (props) => {
+const SubTitle = ({text}) => {
 
     return (
         <h2>
-            {props.text}
+            {text}
         </h2>
     )
 }

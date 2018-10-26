@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MainTitle from './common/mainTitle';
+import SubTitle from './common/subTitle';
 
 ReactDOM.render(
     <div>
-        Hello react!
+        <MainTitle text='Hello hooks!' />
+        <SubTitle text='hello hooks!' />
     </div>,
     document.getElementById('root')
 );

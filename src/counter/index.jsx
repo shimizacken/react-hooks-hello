@@ -1,25 +1,55 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 
 const Counter = _ => {
 
     const [count, setCount] = useState(0);
+    const [person, setPerson] = useState(null);
+    const [fullusername, setFullusername] = useState('');
 
     const updateCounter = () => {
     
         setCount(count + 1);
     }
 
+    //document.title = `Clicker!`;
+
+    useEffect(async () => {
+
+        const response = await fetch('https://api.randomuser.me/');
+        const data = await response.json();
+        const [p] = data.results;
+
+        setPerson(p);
+        setFullusername(`${p.name.title} ${p.name.first} ${p.name.last}`);
+
+        document.title = fullusername;
+    }, []);
+
     return (
         <div>
             <button
                 onClick={() => updateCounter()}
             >
-                Click me!
+                You clicked {count}!
             </button>
             <div>
-                <span>
-                    {count}
-                </span>
+                <div
+                    style={{
+                        textTransform: 'capitalize'
+                    }}
+                >
+                    {fullusername}
+                </div>
+                <div
+                    style={{
+                        textTransform: 'capitalize'
+                    }}
+                >
+                    {person && `${person.location.street} ${person.location.city} ${person.location.state}`}
+                </div>
+                <div>
+                    <img src={person && `${person.picture.thumbnail}`} title={fullusername} />
+                </div>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ const Counter = _ => {
     const [count, setCount] = useState(0);
     const [person, setPerson] = useState(null);
     const [fullusername, setFullusername] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const updateCounter = () => {
     
@@ -21,9 +22,12 @@ const Counter = _ => {
 
         setPerson(p);
         setFullusername(`${p.name.title} ${p.name.first} ${p.name.last}`);
+        setLoading(false);
 
-        document.title = fullusername;
     }, []);
+
+
+    document.title = fullusername;
 
     return (
         <div>
@@ -32,25 +36,30 @@ const Counter = _ => {
             >
                 You clicked {count}!
             </button>
-            <div>
-                <div
-                    style={{
-                        textTransform: 'capitalize'
-                    }}
-                >
-                    {fullusername}
-                </div>
-                <div
-                    style={{
-                        textTransform: 'capitalize'
-                    }}
-                >
-                    {person && `${person.location.street} ${person.location.city} ${person.location.state}`}
-                </div>
-                <div>
-                    <img src={person && `${person.picture.thumbnail}`} title={fullusername} />
-                </div>
-            </div>
+            {
+                loading ? 
+                    <div>loading...</div>
+                        :
+                    <div>
+                        <div
+                            style={{
+                                textTransform: 'capitalize'
+                            }}
+                        >
+                            {fullusername}
+                        </div>
+                        <div
+                            style={{
+                                textTransform: 'capitalize'
+                            }}
+                        >
+                            {person && `${person.location.street} ${person.location.city} ${person.location.state}`}
+                        </div>
+                        <div>
+                            <img src={person && `${person.picture.thumbnail}`} title={fullusername} />
+                        </div>
+                    </div>
+            }
         </div>
     );
 };
